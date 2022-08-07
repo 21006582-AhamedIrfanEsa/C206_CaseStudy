@@ -87,4 +87,80 @@ public class C206_CaseStudyTest {
 		assertTrue("C206_CaseStudy_SampleTest ",true);
 	}
 
+
+private RequestQuotation RQ1;
+private RequestQuotation RQ2;
+
+private ArrayList<RequestQuotation> rQuotationList;
+
+public void C206_CaseStudyTest1() {
+    
+}
+
+@Before
+public void setUp1() throws Exception {
+    RQ1 =  new RequestQuotation("HDB",500.00,"John",12345678,"john@gmail.com",10000," 21 Aug 2022","Whole house",2,2,true);
+    RQ2 =  new RequestQuotation("Private",700.00,"Chloe",12345679,"Chloe@gmail.com",20000," 22 Aug 2022","Room",1,0,false);
+    rQuotationList = new ArrayList<RequestQuotation>();
+}
+
+@Test
+public void testAddRequestQuotation () {
+assertNotNull("Test if there is valid RequestQuotation arraylist to add to", rQuotationList);
+
+C206_CaseStudy.addRequestQuotation(rQuotationList, RQ1);        
+assertEquals("Test if that RequestQuotation arraylist size is 1?", 1, rQuotationList.size());
+assertSame("Test that RequestQuotation is added same as 1st item of the list?", RQ1, rQuotationList.get(0));
+
+C206_CaseStudy.addRequestQuotation(rQuotationList, RQ2);
+assertEquals("Test that RequestQuotation arraylist size is 2?", 2, rQuotationList.size());
+assertSame("Test that RequestQuotation is added same as 2nd item of the list?", RQ2, rQuotationList.get(1));
+}
+
+public void testViewAllRequestQuotation() {
+assertNotNull("Test if there is valid RequestQuotation arraylist to add to", rQuotationList);
+
+String allRequestQuotation= C206_CaseStudy.DeleteRequestQuotation(rQuotationList);
+String testOutput = "";
+assertEquals("Check that ViewAllrQuotationlist", testOutput, allRequestQuotation);
+
+C206_CaseStudy.addRequestQuotation(rQuotationList,RQ1);
+C206_CaseStudy.addRequestQuotation(rQuotationList,RQ2);
+assertEquals("Test that RequestQuotation arraylist size is 2?", 2, rQuotationList.size());
+
+allRequestQuotation = C206_CaseStudy.DeleteRequestQuotation(rQuotationList);
+
+testOutput += String.format("%-10s %-30.2f %-30s %-30d %-30s %-30d %-30s %-30s %-30d %-30d %-30b\n ","HDB",500.00,"John",12345678,"john@gmail.com",10000," 21 Aug 2022","Whole house",2,2,true);
+testOutput += String.format("%-10s %-30.2f %-30s %-30d %-30s %-30d %-30s %-30s %-30d %-30d %-30b\n ","Private",700.00,"Chloe",12345679,"Chloe@gmail.com",20000," 22 Aug 2022","Room",1,0,false);
+assertEquals("Check that ViewAllRequestQuotation",allRequestQuotation,testOutput);
+
+
+
+
+
+}
+
+
+public void testDeleteRequestQuotation() {
+assertNotNull("Test if there is valid RequestQuotation arraylist to add to", rQuotationList);
+
+C206_CaseStudy.addRequestQuotation(rQuotationList,RQ1);
+C206_CaseStudy.addRequestQuotation(rQuotationList,RQ2);
+
+assertEquals(2,rQuotationList.size());
+rQuotationList.remove(0);
+assertEquals(1,rQuotationList.size());
+rQuotationList.remove(0);
+
+assertTrue(rQuotationList.isEmpty());
+
+
+}
+@After
+public void tearDown() throws Exception {
+    RQ1 = null;
+    RQ2 = null; 
+    rQuotationList = null;
+}
+
 }
